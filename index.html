@@ -2,102 +2,291 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CYBEROLOGY</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <title>Login & PDF Viewer</title>
   <style>
-    body {
+    * {
       margin: 0;
-      background-color: #3C3C3B;
-      font-family: 'Roboto Mono', monospace;
-      color: #FFFFFF;
-    }
-
-    .top-image-box {
-      width: 100%;
-      background-color: #2F2F2E;
-      padding: 10px;
+      padding: 0;
       box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
-    .top-image-box img {
-  width: 100%;
-  max-height: 350px; /* adjust this value as needed */
-  object-fit: cover;
-  border-radius: 10px;
-  border: 4px solid #00FF00;
-  box-shadow: 0 0 15px #00FF00;
-}
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
 
-    header {
+    /* CyberValley header on top with glow */
+    .app-title {
+      margin-top: 20px;
+      font-size: 32px;
+      color: white;
+      animation: glowUp 3s ease-in-out forwards;
       text-align: center;
-      padding: 20px 0;
-    }
-
-    marquee {
-      font-size: 60px;
-      color: #FFFFFF;
-      font-family: 'Orbitron', sans-serif;
-      font-weight: bold;
-      text-shadow: 0 0 20px #00FF00, 0 0 40px #00FF00, 0 0 60px #00FF00;
-      padding: 20px 0;
-    }
-
-    .info {
-      margin: 20px;
-      font-size: 20px;
-    }
-
-    .audio-section {
-      margin: 40px 20px;
-    }
-
-    audio {
-      display: block;
-      margin-top: 10px;
-    }
-
-    .registration {
-      margin: 20px;
-      font-size: 18px;
-    }
-
-    a {
-      color: #00FF00;
-      text-decoration: none;
       font-weight: bold;
     }
 
-    a:hover {
+    @keyframes glowUp {
+      0% {
+        color: #cccccc;
+        text-shadow: none;
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      50% {
+        color: #ffffff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+        opacity: 0.6;
+      }
+      100% {
+        color: #ffffff;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .container {
+      background-color: white;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      width: 340px;
+      animation: fadeInUp 1s ease-out;
+      margin-top: 40px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      color: #333;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      font-size: 14px;
+      color: #555;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 40px 12px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 6px;
+    }
+
+    input:focus {
+      border-color: #667eea;
+      outline: none;
+    }
+
+    .show-password {
+      position: absolute;
+      right: 12px;
+      top: 38px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #667eea;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      font-size: 16px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .link-button {
+      background: none;
+      color: #667eea;
+      border: none;
       text-decoration: underline;
+      cursor: pointer;
+      display: block;
+      margin: 10px auto;
+    }
+
+    .message {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+
+    .pdf-container {
+      display: none;
+      width: 90%;
+      height: 90%;
+      border: 4px solid white;
+      border-radius: 12px;
+      background-color: white;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
     }
   </style>
 </head>
 <body>
 
-  <div class="top-image-box">
-    <img src="cyberologyy-removebg-preview.png" alt="Main Banner">
+  <!-- App title on top -->
+  <div class="app-title">CyberValley</div>
+
+  <!-- Login Container -->
+  <div class="container" id="loginContainer">
+    <h2>Login</h2>
+    <form onsubmit="return checkLogin()">
+      <div class="input-group">
+        <label for="loginID">Username / Email / Contact</label>
+        <input type="text" id="loginID" placeholder="Enter ID" required>
+      </div>
+
+      <div class="input-group">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" required>
+        <span class="show-password" onclick="togglePassword('loginPass', this)">Show</span>
+      </div>
+
+      <button type="submit">Login</button>
+      <button type="button" class="link-button" onclick="showSignup()">Don't have an account? Sign up</button>
+      <div class="message" id="loginMsg"></div>
+    </form>
   </div>
 
-  <header>
-    <marquee behavior="alternate" direction="left">CYBEROLOGY</marquee>
-  </header>
+  <!-- Sign Up Container -->
+  <div class="container hidden" id="signupContainer">
+    <h2>Sign Up</h2>
+    <form onsubmit="return registerUser()">
+      <div class="input-group"><label>Full Name</label><input id="fullName" required></div>
+      <div class="input-group"><label>Contact Number</label><input id="contact" required></div>
+      <div class="input-group"><label>Email</label><input id="email" required></div>
+      <div class="input-group"><label>Username</label><input id="newUsername" required></div>
+      <div class="input-group"><label>Password</label><input type="password" id="newPassword" required></div>
+      <div class="input-group"><label>Re-enter Password</label><input type="password" id="confirmPassword" required></div>
 
-  <div class="info">
-    Welcome to CYBEROLOGY, your tech destination for everything cybersecurity, tech trends, and the latest news in the cyber world.
+      <button type="submit">Register</button>
+      <button type="button" class="link-button" onclick="showLogin()">Already have an account? Login</button>
+      <div class="message" id="signupMsg"></div>
+    </form>
   </div>
 
-  <div class="audio-section">
-    <p><strong>Important Voice Message</strong></p>
-    <audio controls>
-      <source src="meme.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
+  <!-- PDF Viewer -->
+  <div class="pdf-container" id="pdfContainer">
+    <iframe class="pdf-frame" src="research.pdf#toolbar=0" title="PDF Viewer"></iframe>
   </div>
 
-  <div class="registration">
-    <p><strong>Registration Link:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSdu0muZ0LZ8Otz3z5HnZulJKFSs30fcI2p83ZLySjvBB70A2g/viewform?usp=header" target="_blank">Click Here to Register</a></p>
-  </div>
+  <script>
+    const users = [
+      { username: "abc123", password: "abc123", email: "abc123@mail.com", contact: "1234567890" },
+      { username: "def456", password: "def456", email: "def456@mail.com", contact: "0987654321" },
+      { username: "admin", password: "admin", email: "admin@mail.com", contact: "1122334455" }
+    ];
 
+    function togglePassword(id, el) {
+      const field = document.getElementById(id);
+      if (field.type === "password") {
+        field.type = "text";
+        el.textContent = "Hide";
+      } else {
+        field.type = "password";
+        el.textContent = "Show";
+      }
+    }
+
+    function showSignup() {
+      document.getElementById("loginContainer").classList.add("hidden");
+      document.getElementById("signupContainer").classList.remove("hidden");
+    }
+
+    function showLogin() {
+      document.getElementById("signupContainer").classList.add("hidden");
+      document.getElementById("loginContainer").classList.remove("hidden");
+    }
+
+    function registerUser() {
+      const fullName = document.getElementById("fullName").value.trim();
+      const contact = document.getElementById("contact").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const username = document.getElementById("newUsername").value.trim();
+      const password = document.getElementById("newPassword").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+
+      const msg = document.getElementById("signupMsg");
+      if (password !== confirmPassword) {
+        msg.textContent = "Passwords do not match!";
+        msg.style.color = "red";
+        return false;
+      }
+
+      users.push({ username, password, email, contact });
+      msg.style.color = "green";
+      msg.textContent = "Registration successful! Redirecting to login...";
+
+      setTimeout(() => {
+        showLogin();
+      }, 1000);
+
+      return false;
+    }
+
+    function checkLogin() {
+      const id = document.getElementById("loginID").value.trim();
+      const password = document.getElementById("loginPass").value;
+      const msg = document.getElementById("loginMsg");
+
+      const user = users.find(u => (u.username === id || u.email === id || u.contact === id) && u.password === password);
+
+      if (user) {
+        msg.style.color = "green";
+        msg.textContent = "Login successful!";
+        setTimeout(() => {
+          document.getElementById("loginContainer").style.display = "none";
+          document.getElementById("pdfContainer").style.display = "block";
+        }, 800);
+      } else {
+        msg.style.color = "red";
+        msg.textContent = "Invalid login credentials.";
+      }
+
+      return false;
+    }
+  </script>
 </body>
 </html>
