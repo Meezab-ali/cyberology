@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CYBEROLOGY</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Roboto+Mono&display=swap" rel="stylesheet">
   <style>
@@ -13,19 +13,40 @@
       color: #FFFFFF;
     }
 
-
     header {
       text-align: center;
-      padding: 20px 0;
+      padding: 20px 0 10px 0;
     }
 
     marquee {
-      font-size: 60px;
+      font-size: 90px;
       color: #FFFFFF;
       font-family: 'Orbitron', sans-serif;
       font-weight: bold;
       text-shadow: 0 0 20px #00FF00, 0 0 40px #00FF00, 0 0 60px #00FF00;
-      padding: 20px 0;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-button {
+      background-color: #00FF00;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .nav-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
     }
 
     .info {
@@ -48,7 +69,7 @@
     }
 
     a {
-      color: #00FF00;
+      color: #1ff31f;
       text-decoration: none;
       font-weight: bold;
     }
@@ -58,68 +79,122 @@
     }
 
     .neon-box {
-  display: inline-block;
-  padding: 10px 20px;
-  border: 2px solid red;
-  border-radius: 8px;
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      border: 2px solid red;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      box-shadow:
+        0 0 5px red,
+        0 0 10px red,
+        0 0 15px red,
+        0 0 20px red;
+      animation: neonPulse 1.5s infinite alternate;
+      margin-bottom: 20px;
+    }
+
+    @keyframes neonPulse {
+      0% {
+        box-shadow:
+          0 0 5px red,
+          0 0 10px red,
+          0 0 15px red,
+          0 0 20px red;
+        opacity: 0.8;
+      }
+      100% {
+        box-shadow:
+          0 0 15px red,
+          0 0 25px red,
+          0 0 35px red,
+          0 0 45px red;
+        opacity: 1;
+      }
+    }
+
+      .nav-button {
+    background-color: rgba(0, 255, 0, 0.4); /* semi-transparent green */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    margin: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .nav-button:hover {
+    background-color: rgba(0, 255, 0, 1); /* fully opaque green */
+    transform: scale(1.1);
+    box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+  }
+
+  .nav-container {
+    text-align: center;
+    margin-top: 100px; /* Increased space below CYBEROLOGY */
+  }
+
+  .nav-button {
+    background-color: rgba(0, 255, 0, 0.4); /* semi-transparent neon green */
+    color: white;
+    border: none;
+    padding: 8px 18px; /* smaller size */
+    margin: 10px;
+    font-size: 16px;
+    font-family: 'Orbitron', sans-serif; /* tech font */
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .nav-container {
   text-align: center;
-  box-shadow:
-    0 0 5px red,
-    0 0 10px red,
-    0 0 15px red,
-    0 0 20px red;
-  animation: neonPulse 1.5s infinite alternate;
-  margin-bottom: 20px;
+  margin-top: 50px; /* increased distance from marquee */
+  margin-bottom: 30px;
 }
-
-@keyframes neonPulse {
-  0% {
-    box-shadow:
-      0 0 5px red,
-      0 0 10px red,
-      0 0 15px red,
-      0 0 20px red;
-    opacity: 0.8;
-  }
-  100% {
-    box-shadow:
-      0 0 15px red,
-      0 0 25px red,
-      0 0 35px red,
-      0 0 45px red;
-    opacity: 1;
-  }
-}
-
   </style>
 </head>
 <body>
-
-
 
   <header>
     <marquee behavior="alternate" direction="left">CYBEROLOGY</marquee>
   </header>
 
+  <div class="button-container">
+    <button class="nav-button">Home</button>
+    <button class="nav-button">Blogs</button>
+    <button class="nav-button">Hacking Tutorials</button>
+    <button class="nav-button">About Us</button>
+  </div>
+<p><br></p>
   <div class="info">
     Welcome to CYBEROLOGY, your tech destination for everything cybersecurity, tech trends, and the latest news in the cyber world.
   </div>
 
   <div class="audio-section">
-  <div class="neon-box">Important Voice Message</div>
-  <audio controls>
-    <source src="meme.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-</div>
-
+    <div class="neon-box">Important Voice Message</div>
+    <audio controls>
+      <source src="meme.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
 
   <div class="registration">
-    <p><strong>Registration Link:</strong> <a href="https://docs.google.com/forms/d/e/1FAIpQLSdu0muZ0LZ8Otz3z5HnZulJKFSs30fcI2p83ZLySjvBB70A2g/viewform?usp=header" target="_blank">Click Here to Register</a></p>
+  
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdu0muZ0LZ8Otz3z5HnZulJKFSs30fcI2p83ZLySjvBB70A2g/viewform?usp=header" target="_blank">
+        Click Here to Register
+      </a>
+    </p>
   </div>
+
+ 
+
 
 </body>
 </html>
